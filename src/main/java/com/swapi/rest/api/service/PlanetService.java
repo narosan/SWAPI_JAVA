@@ -7,7 +7,7 @@ import com.swapi.rest.api.documents.Planet;
 public interface PlanetService {
 	List<Planet> findAll();
 	Planet findById(String id);
-	Planet findByName(String name);
+	List<Planet> findByName(String name);
 	Planet create(Planet planet);
 	Planet update(Planet planet);
 	void delete(String id);

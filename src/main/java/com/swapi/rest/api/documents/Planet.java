@@ -4,6 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "Planet")
 public class Planet {
@@ -21,15 +22,19 @@ public class Planet {
 	}
 
 	@Id
+	@Field("id")
 	private String id;
 	
 	@NotEmpty(message = "Name can't be empty")
+	@Field("name")
 	private String name;
 	
 	@NotEmpty(message = "Terrain can't be empty")
+	@Field("terrain")
 	private String terrain;
 	
 	@NotEmpty(message = "Climate can't be empty")
+	@Field("climate")
 	private String climate;
 	
 	private int appear;

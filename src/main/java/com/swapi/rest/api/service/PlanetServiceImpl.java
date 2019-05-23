@@ -3,6 +3,9 @@ package com.swapi.rest.api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.swapi.rest.api.documents.Planet;
@@ -11,6 +14,13 @@ import com.swapi.rest.api.repositorys.PlanetRepository;
 @Service
 public class PlanetServiceImpl implements PlanetService {
 
+	private final MongoTemplate mongoTemplate;
+	
+	@Autowired
+	public PlanetServiceImpl(MongoTemplate template) {
+		mongoTemplate = template;
+	}
+	
 	@Autowired
 	private PlanetRepository pr;
 	
@@ -25,8 +35,10 @@ public class PlanetServiceImpl implements PlanetService {
 	}
 
 	@Override
-	public Planet findByName(String name) {
-		return null;
+	public List<Planet> findByName(String name) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").is(name));
+		return mongoTemplate.find(query, Planet.class);
 	}
 
 	@Override

@@ -48,6 +48,13 @@ public class PlanetController {
 		return ResponseEntity.ok(new Response<Planet>(findedPlanet));
 	}
 	
+	@GetMapping(path = "name/{name}")
+	public ResponseEntity<Response<List<Planet>>> findByName(@PathVariable(name = "name") String name) {
+		List<Planet> planets = ps.findByName(name);
+		planets.forEach(p -> p.setAppear(planetApparition(p.getName())));
+		return ResponseEntity.ok(new Response<List<Planet>>(planets));
+	}
+	
 	@PostMapping
 	public ResponseEntity<Response<Planet>> create(@RequestBody Planet planet, BindingResult result) {
 		if(result.hasErrors()) {
